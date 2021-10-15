@@ -1,0 +1,205 @@
+                               Dictionary Practice Problems
+
+1. Write a program in the following steps
+a. Roll a die and find the number between 1 to 6
+b. Repeat the Die roll and find the result each time
+c. Store the result in a dictionary
+d. Repeat till any one of the number has reached 10 times
+e. Find the number that reached maximum times and the one that was for minimum times
+
+Answer-
+
+#!/bin/bash 
+declare -A die_rolls
+key=0
+ max_1=0
+ max_2=0
+ max_3=0
+ max_4=0
+ max_5=0
+ max_6=0
+ while [ true ] 
+  do
+    roll_die=$((1+RANDOM%6)) 
+    die_rolls[$key]=$roll_die 
+   ((key++)) 
+
+case "${die_rolls[$(($key-1))]}" in 
+
+1) # when it rolls 1
+((max_1++)) 
+sum1=$(($sum1+$roll_die)) 
+   if [ $sum1 -eq $(($roll_die*10)) ] 
+   then
+      max_reached=1
+      break; 
+  fi
+;;
+
+2)
+((max_2++))
+sum2=$(($sum2+$roll_die))
+   if [ $sum2 -eq $(($roll_die*10)) ]
+   then
+   max_reached=2
+   break;
+   fi
+;;
+
+3)
+((max_3++))
+sum3=$(($sum3+$roll_die))
+  if [ $sum3 -eq $(($roll_die*10)) ]
+  then
+  max_reached=3
+  break;
+  fi
+;;
+
+4)
+((max_4++))
+sum4=$(($sum4+$roll_die))
+if [ $sum4 -eq $(($roll_die*10)) ]
+then
+max_reached=4
+break;
+fi
+;;
+
+5)
+((max_5++))
+sum5=$(($sum5+$roll_die))
+
+  if [ $sum5 -eq $(($roll_die*10))
+  then
+    max_reached=5
+  break;
+fi
+;;
+
+*)
+((max_6++))
+sum6=$(($sum6+$roll_die))
+if [ $sum6 -eq $(($roll_die*10)) ]
+then
+max_reached=6
+break;
+fi
+;;
+esac
+done
+declare -A die_roll_track 
+for ((i=1;i<=6;i++)) 
+die_roll_track[$i]=$((max_$i))
+done
+echo ${die_roll_track[@]}
+echo "$max_reached rolled maximun of 10 times"
+let least_rolled_times=${die_roll_track[1]}
+
+for ((i=2;i<=6;i++)) # To find least rolled number
+do
+if [ $least_rolled_times -gt ${die_roll_track[$i]} ]
+then
+least_rolled_times=${die_roll_track[$i]}
+fi
+done
+for ((i=1;i<=6;i++)) # To find multiple least rolled numbers if any.
+do
+if [ $least_rolled_times -eq ${die_roll_track[$i]} ]
+then
+echo "$i rolled minimum of $least_rolled_times times"
+fi
+done
+
+2.Write a Program to generate a birth month of 50 individuals between the
+year 92 & 93. Find all the individuals having birthdays in the same month.
+Store it to finally print.
+
+Answer-
+#!/bin/bash -x
+total_individuals=50
+declare -A birth_months
+for ((person_name=1;person_name<=$total_individuals;person_name++))
+do
+birth_months[$person_name]=$((1+RANDOM%12))
+done
+
+  Jan=1; declare -A month_Jan; person_Jan=0
+  Feb=2; declare -A month_Feb; person_Feb=0
+  Mar=3; declare -A month_Mar; person_Mar=0
+  Apr=4; declare -A month_Apr; person_Apr=0
+  May=5; declare -A month_May; person_May=0
+  Jun=6; declare -A month_Jun; person_Jun=0
+  Jul=7; declare -A month_Jul; person_Jul=0
+  Aug=8; declare -A month_Aug; person_Aug=0
+  Sep=9; declare -A month_Sep; person_Sep=0
+  Oct=10; declare -A month_Oct; person_Oct=0
+  Nov=11; declare -A month_Nov; person_Nov=0
+  Dec=12; declare -A month_Dec; person_Dec=0
+  for ((person_name=1;person_name<=50;person_name++))
+  do
+    case "${birth_months[$person_name]}" in
+     $Jan)
+    ((person_Jan++))
+    month_Jan[$person_Jan]=$key
+  ;;
+  $Feb)
+    ((person_Feb++))
+    month_Feb[$person_Feb]=$key
+  ;;
+  $Mar)
+    ((person_Mar++))
+    month_Mar[$person_Mar]=$key
+  ;;
+  $Apr)
+    ((person_Apr++))
+    month_Apr[$person_Apr]=$key
+ ;;
+ $May)
+   ((person_May++))
+   month_May[$person_May]=$key
+ ;;
+ $Jun)
+   ((person_Jun++))
+   month_Jun[$person_Jun]=$key
+ ;;
+  $Jul)
+     ((person_Jul++))
+     month_Jul[$person_Jul]=$key
+  ;;
+  $Aug)
+    ((person_Aug++))month_Aug[$person_Aug]=$key
+  ;;
+  $Sep)
+   ((person_Sep++))
+   month_Sep[$person_Sep]=$key
+  ;;
+  $Oct)
+   ((person_Oct++))
+   month_Oct[$person_Oct]=$key
+  ;;
+  $Nov)
+   ((person_Nov++))
+   month_Nov[$person_Nov]=$key
+  ;;
+ $Dec)
+   ((person_Dec++))
+   month_Dec[$person_Dec]=$key
+  ;;
+  *)
+echo "Error!"
+;;
+esac
+done
+echo "individuals born in Jan are: "${month_Jan[@]}
+echo "individuals born in Feb are: "${month_Feb[@]}
+echo "individuals born in Mar are: "${month_Mar[@]}
+echo "individuals born in Apr are: "${month_Apr[@]}
+echo "individuals born in May are: "${month_May[@]}
+echo "individuals born in Jun are: "${month_Jun[@]}
+echo "individuals born in Jul are: "${month_Jul[@]}
+echo "individuals born in Aug are: "${month_Aug[@]}
+echo "individuals born in Sep are: "${month_Sep[@]}
+echo "individuals born in Oct are: "${month_Oct[@]}
+echo "individuals born in Nov are: "${month_Nov[@]}
+echo "individuals born in Dec are: "${month_Dec[@]}

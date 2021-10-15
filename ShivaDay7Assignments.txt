@@ -1,0 +1,160 @@
+1. Write a program in the following steps
+a. Generates 10 Random 3 Digit number.
+b. Store this random numbers into a array.
+c. Then find the 2nd largest and the 2nd smallest element without sorting the array.
+
+Answer-
+#!/bin/bash#!/bin/bash
+declare -a random_numbers
+for(( i=0; i<=9; i++ ))
+do
+   random_numbers[$i]=$((100+RANDOM%100))
+done
+for(( i=1; i<=((${#random_numbers[@]}-1));i++ ))
+do
+   if [ $random_numbers[i] -gt $biggest ]
+   then
+        biggest=$random_numbers[i]
+   elfi [ {$random_numbers[i]} -lt $smallest ]
+   then
+      smallest=$random_numbers[i]
+   fi
+done
+   second_biggest=${random_numbers[0]}
+   second_smallest=${random_numbers[1]}
+
+for(( i=1; i<=((${#random_numbers[@]}-1));i++ ))
+do
+   if [[ ${random_numbers[i]} -lt $biggest && ${random_numbers[i]} -gt $second_biggest ]]
+   then
+      second_biggest=${random_numbers[i]}
+   elif [[ ${random_numbers[i]} -gt $smallest && ${random_numbers[i]} -lt $second_biggest ]]
+   then
+     second_smallest=${random_numbers[i]}
+   fi
+done
+
+2.Extend the above program to sort the array and then find the 2nd largest
+and the 2nd smallest element.
+
+Answer-
+
+#!/bin/bash
+arr=(1 2 3 4 5 8 7 12  11 )
+len=${#arr[@]}
+temp=0
+
+for (( i=0; i<$len; i++ ))
+do
+    for ((  j=i+1; j<$len; j++ ))
+    do
+      if [  ${arr[i]}  -lt ${arr[j]} ]
+       then
+           temp=${arr[i]}
+           arr[i]=${arr[j]}
+           arr[j]=$temp
+     fi
+  done
+done
+echo "${arr[@]}"
+echo "Second largest number is:${arr[1]}"
+echo "Second smallest number is:${arr[7]}"
+
+
+3.Extend the Prime Factorization Program to store all the Prime Factors of a
+  number n into an array and finally display the output.
+
+Answer-
+#!/bin/bash
+read -p "Enter Numbers:"
+temp=$number
+
+declare -a primefactors
+index=0
+isprime="true"
+for(( n=2; n<=$number; n++ ))
+do
+   for(( i=2; i<=n/2; i++ ))
+   do
+      if [ $((n%i)) -eq 0 ]
+      then
+          isprime="false"
+      fi
+   done
+
+if [ $isprime=="true" ]
+then
+     if [ $(($number%$n))  -eq 0 ]
+     then
+           number=$(($number/$n))
+           primeFactors[$index]=$n
+           ((index++))
+           n=1
+     fi
+     fi
+fi
+isprime="true"
+done
+echo "prime factors $temp are:"${primefactors[@]}
+
+
+4. Write a Program to show Sum of three Integer adds to ZERO
+Answer-
+
+#!/bin/bash
+
+arr=(1 2 -3 2 -2)
+
+len=${#arr[@]}
+echo $len
+
+for((  i=0; i<$len; i++ ))
+do
+   for((  j=0; j<$len; j++ ))
+   do
+     for((  k=0; k<$len; k++ ))
+     do
+         if [ $((${arr[i]}+${arr[j]}+${arr[k]}))  -eq 0 ]
+         then
+              echo "${arr[i]} ${arr[j]} ${arr[k]}"
+         fi
+     done
+   done
+done
+
+
+5.Take a range from 0 – 100, find the digits that are repeated twice like 33, 77,
+  etc and store them in an array
+
+Answer-
+
+#!/bin/bash
+n=0
+for((  number=1; number<=100; number++ ))
+do
+ if [ $number -ge 11 ]
+   if [ $number -gt 1 ]
+   then
+   n=$number
+   sum=0
+   reminder=0
+
+  while [ $n -gt 0 ]
+  do
+
+    reminder=$(($number%10))
+    sum=$((($sum*10)+$reminder))
+    n=$(($n/10))
+
+   done
+
+  if [ $(($number)) -eq $sum ]
+  then
+      echo $number
+  fi
+fi
+fi
+done
+
+
+
